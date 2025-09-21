@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="tr" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title data-key="title_projects">Ali Kemal — Projeler</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;700&family=Fira+Code:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body>
+  <div id="preloader" class="preloader">
+    <div class="spinner"><div></div><div></div><div></div></div>
+  </div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="index.html" data-key="nav_home">Ali Kemal</a>
+      <nav class="nav">
+        <a href="index.html" data-key="nav_home">Anasayfa</a>
+        <a href="about.html" data-key="nav_about">Hakkımda</a>
+        <a href="projects.html" data-key="nav_projects">Projeler</a>
+        <a href="blog.html" data-key="nav_blog">Blog</a>
+        <a href="gallery.html" data-key="nav_gallery">Galeri</a>
+        <a href="contact.html" data-key="nav_contact">İletişim</a>
+      </nav>
+
+      <div class="controls">
+        <div class="lang-switch" role="group" aria-label="Dil seçici">
+          <button class="lang-btn" data-lang="tr" aria-pressed="false">TR</button>
+          <button class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <button id="theme-toggle-3" class="theme-toggle" aria-label="Tema değiştir">☀️</button>
+        <button id="menu-toggle-3" class="menu-toggle">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="container projects">
+      <h2 data-key="projects_title">Projelerim</h2>
+      <p style="text-align: center; color: var(--muted); margin-bottom: 3rem;" data-key="projects_subtitle">GitHub hesabımdan gerçek projelerim</p>
+      
+      <div class="grid">
+        <!-- Unity Editor Proje Kurulum Aracı -->
+        <article class="card" data-aos="fade-up">
+          <div class="project-image">
+            <div class="project-icon">
+              <svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L2 7v10c0 5.55 3.84 9.95 9 11 5.16-1.05 9-5.45 9-11V7l-10-5z"/>
+              </svg>
+            </div>
+            <div class="project-language">C#</div>
+          </div>
+          <div class="card-body">
+            <h3 data-key="proj1_title">Unity Editor Proje Kurulum Aracı</h3>
+            <p data-key="proj1_desc">Unity projeleriniz için gerekli olan klasörleri tek tuş ile oluşturmanızı sağlayan editor aracı. Proje organizasyonunu kolaylaştırır.</p>
+            <div class="project-stats">
+              <span class="stat">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                </svg>
+                <span>0</span>
+              </span>
+              <span class="stat">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2z"/>
+                </svg>
+                <span>C#</span>
+              </span>
+            </div>
+            <p class="card-links">
+              <a href="https://github.com/Nukte/UnityEditor_ProjeKurulumAraci" target="_blank" data-key="proj1_github">GitHub</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- Türkçe Cümle Duygu Analizi -->
+        <article class="card" data-aos="fade-up" data-aos-delay="100">
+          <div class="project-image">
+            <div class="project-icon">
+              <svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.1 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+              </svg>
+            </div>
+            <div class="project-language">Python</div>
+          </div>
+          <div class="card-body">
+            <h3 data-key="proj2_title">Türkçe Cümle Duygu Analizi</h3>
+            <p data-key="proj2_desc">Türkçe cümleleri pozitif veya negatif olarak sınıflandıran makine öğrenmesi projesi. Doğal dil işleme teknikleri kullanılarak geliştirilmiştir.</p>
+            <div class="project-stats">
+              <span class="stat">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                </svg>
+                <span>0</span>
+              </span>
+              <span class="stat">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2z"/>
+                </svg>
+                <span>Python</span>
+              </span>
+            </div>
+            <p class="card-links">
+              <a href="https://github.com/Nukte/Turkish_Sentence_Mood_Analysis" target="_blank" data-key="proj2_github">GitHub</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- Stajyer Takip Sistemi -->
+        <article class="card" data-aos="fade-up" data-aos-delay="200">
+          <div class="project-image">
+            <div class="project-icon">
+              <svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63A1.5 1.5 0 0 0 18.54 8H17c-.8 0-1.54.37-2.01.99l-2.54 3.38c-.35.47-.35 1.1 0 1.57l2.54 3.38c.47.62 1.21.99 2.01.99h1.54c.69 0 1.32-.42 1.58-1.06L22 14v8h-2z"/>
+              </svg>
+            </div>
+            <div class="project-language">C#</div>
+          </div>
+          <div class="card-body">
+            <h3 data-key="proj3_title">Stajyer Takip Sistemi</h3>
+            <p data-key="proj3_desc">Stajyerlerin takip edilmesi ve yönetilmesi için geliştirilmiş masaüstü uygulaması. C# ve .NET teknolojileri kullanılarak geliştirilmiştir.</p>
+            <div class="project-stats">
+              <span class="stat">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                </svg>
+                <span>2</span>
+              </span>
+              <span class="stat">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2z"/>
+                </svg>
+                <span>C#</span>
+              </span>
+            </div>
+            <p class="card-links">
+              <a href="https://github.com/Nukte/stajyerTakip" target="_blank" data-key="proj3_github">GitHub</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- NetFlowN -->
+        <article class="card" data-aos="fade-up" data-aos-delay="300">
+          <div class="project-image">
+            <div class="project-icon">
+              <svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+            </div>
+            <div class="project-language">HTML</div>
+          </div>
+          <div class="card-body">
+            <h3 data-key="proj4_title">NetFlowN</h3>
+            <p data-key="proj4_desc">Web tabanlı network flow analiz aracı. HTML, CSS ve JavaScript teknolojileri kullanılarak geliştirilmiş modern web uygulaması.</p>
+            <div class="project-stats">
+              <span class="stat">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                </svg>
+                <span>0</span>
+              </span>
+              <span class="stat">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2z"/>
+                </svg>
+                <span>HTML</span>
+              </span>
+            </div>
+            <p class="card-links">
+              <a href="https://github.com/Nukte/NetFlowN" target="_blank" data-key="proj4_github">GitHub</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- ArtyHome For School -->
+        <article class="card" data-aos="fade-up" data-aos-delay="400">
+          <div class="project-image">
+            <div class="project-icon">
+              <svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+              </svg>
+            </div>
+            <div class="project-language">C#</div>
+          </div>
+          <div class="card-body">
+            <h3 data-key="proj5_title">ArtyHome For School</h3>
+            <p data-key="proj5_desc">Okul yönetimi için geliştirilmiş masaüstü uygulaması. Öğrenci ve öğretmen bilgilerinin yönetilmesi için C# ile geliştirilmiştir.</p>
+            <div class="project-stats">
+              <span class="stat">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                </svg>
+                <span>1</span>
+              </span>
+              <span class="stat">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2z"/>
+                </svg>
+                <span>C#</span>
+              </span>
+            </div>
+            <p class="card-links">
+              <a href="https://github.com/Nukte/ArtyHomeForSchool" target="_blank" data-key="proj5_github">GitHub</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- Kim Milyoner Olmak İster -->
+        <article class="card" data-aos="fade-up" data-aos-delay="500">
+          <div class="project-image">
+            <div class="project-icon">
+              <svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7.01 5 5 7.01 5 9.5S7.01 14 9.5 14 14 11.99 14 9.5 11.99 5 9.5 5z"/>
+              </svg>
+            </div>
+            <div class="project-language">C#</div>
+          </div>
+          <div class="card-body">
+            <h3 data-key="proj6_title">Kim Milyoner Olmak İster</h3>
+            <p data-key="proj6_desc">Popüler televizyon yarışması "Kim Milyoner Olmak İster"in C# ile geliştirilmiş masaüstü versiyonu. Eğlenceli quiz oyunu.</p>
+            <div class="project-stats">
+              <span class="stat">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                </svg>
+                <span>0</span>
+              </span>
+              <span class="stat">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2z"/>
+                </svg>
+                <span>C#</span>
+              </span>
+            </div>
+            <p class="card-links">
+              <a href="https://github.com/Nukte/Kim_Milyoner_Olmak_Ister" target="_blank" data-key="proj6_github">GitHub</a>
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <div style="text-align: center; margin-top: 3rem;">
+        <a href="https://github.com/Nukte" target="_blank" class="btn" data-key="view_all_projects">Tüm Projelerimi GitHub'da Görüntüle</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="container"><small>© <span id="year-3"></span> Ali Kemal</small></div></footer>
+
+  <div id="modal" class="modal" aria-hidden="true"><div class="modal-inner"><button id="modal-close-3" class="modal-close">✕</button><img id="modal-img-3" src="" alt="" /></div></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

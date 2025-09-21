@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="tr" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title data-key="title_about">Ali Kemal — Hakkımda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;700&family=Fira+Code:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body>
+  <div id="preloader" class="preloader">
+    <div class="spinner"><div></div><div></div><div></div></div>
+  </div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="index.html" data-key="nav_home">Kemal</a>
+      <nav class="nav">
+        <a href="index.html" data-key="nav_home">Anasayfa</a>
+        <a href="about.html" data-key="nav_about">Hakkımda</a>
+        <a href="projects.html" data-key="nav_projects">Projeler</a>
+        <a href="blog.html" data-key="nav_blog">Blog</a>
+        <a href="gallery.html" data-key="nav_gallery">Galeri</a>
+        <a href="contact.html" data-key="nav_contact">İletişim</a>
+      </nav>
+
+      <div class="controls">
+        <div class="lang-switch" role="group" aria-label="Dil seçici">
+          <button class="lang-btn" data-lang="tr" aria-pressed="false">TR</button>
+          <button class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <button id="theme-toggle-2" class="theme-toggle" aria-label="Tema değiştir">☀️</button>
+        <button id="menu-toggle-2" class="menu-toggle">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="container about-simple">
+      <div class="about-header">
+        <h1 data-key="about_title">Hakkımda</h1>
+      </div>
+
+      <!-- Personal Introduction -->
+      <div class="about-section">
+        <h2 data-key="personal_intro_title">Kişisel Tanıtım</h2>
+        <div class="about-content">
+          <p data-key="personal_intro">
+            Merhaba! Ben <strong>Ali Kemal Kara</strong>. Tuzla Meslek Lisesi'nde yazılım bölümü okudum ve şu anda Akdeniz Üniversitesi'nde Bilgisayar Programcılığı bölümünde eğitimime devam ediyorum. Yazılım geliştirme alanında kendimi sürekli geliştirmeye odaklı bir öğrenciyim.
+          </p>
+        </div>
+      </div>
+
+      <!-- Work Experience -->
+      <div class="about-section">
+        <h2 data-key="work_experience_title">İş Deneyimi</h2>
+        <div class="about-content">
+          <div class="experience-item">
+            <div class="experience-header">
+              <h3 data-key="netas_position">Software Developer Intern</h3>
+              <span class="company" data-key="netas_company">NETAŞ</span>
+              <span class="duration" data-key="netas_duration">10 Ay</span>
+            </div>
+            <p data-key="netas_description">
+              NETAŞ'ta 10 ay boyunca Software Developer Intern olarak çalıştım. Bu süreçte yazılım geliştirme süreçlerini öğrendim, takım çalışması deneyimi kazandım ve profesyonel iş ortamında projeler geliştirdim.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Technologies -->
+      <div class="about-section">
+        <h2 data-key="technologies_title">Kullandığım Teknolojiler</h2>
+        <div class="about-content">
+          <div class="tech-grid">
+            <div class="tech-item">
+              <div class="tech-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <rect x="3" y="3" width="18" height="18" rx="3"/>
+                </svg>
+              </div>
+              <span data-key="tech_csharp">C#</span>
+            </div>
+            
+            <div class="tech-item">
+              <div class="tech-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0z"/>
+                </svg>
+              </div>
+              <span data-key="tech_dotnet">.NET Core / ASP.NET</span>
+            </div>
+            
+            <div class="tech-item">
+              <div class="tech-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <circle cx="12" cy="8" r="5"/>
+                  <path d="M4 16c2-4 8-4 8-4s6 0 8 4v2H4v-2z"/>
+                </svg>
+              </div>
+              <span data-key="tech_python">Python</span>
+            </div>
+            
+            <div class="tech-item">
+              <div class="tech-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M4 12h16M12 4v16" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <span data-key="tech_cpp">C++</span>
+            </div>
+            
+            <div class="tech-item">
+              <div class="tech-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <circle cx="6" cy="18" r="2"/>
+                  <circle cx="18" cy="6" r="2"/>
+                  <circle cx="12" cy="12" r="2"/>
+                  <path d="M13 11l5-5M11 13l-5 5"/>
+                </svg>
+              </div>
+              <span data-key="tech_git">Git</span>
+            </div>
+            
+            <div class="tech-item">
+              <div class="tech-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <rect x="3" y="10" width="18" height="6" rx="1"/>
+                  <path d="M6 8h3v2H6zM10 8h3v2h-3z"/>
+                </svg>
+              </div>
+              <span data-key="tech_docker">Docker</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div class="about-section">
+        <h2 data-key="education_title">Eğitim</h2>
+        <div class="about-content">
+          <div class="education-item">
+            <h3 data-key="university_name">Akdeniz Üniversitesi</h3>
+            <p data-key="university_department">Bilgisayar Programcılığı</p>
+            <span class="education-status" data-key="university_status">Devam Ediyor</span>
+          </div>
+          
+          <div class="education-item">
+            <h3 data-key="highschool_name">Tuzla Meslek Lisesi</h3>
+            <p data-key="highschool_department">Yazılım Bölümü</p>
+            <span class="education-status" data-key="highschool_status">Mezun</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container"><small>© <span id="year-2"></span> Kemal</small></div>
+  </footer>
+
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="modal-inner"><button id="modal-close-2" class="modal-close">✕</button><img id="modal-img-2" src="" alt="" /></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
