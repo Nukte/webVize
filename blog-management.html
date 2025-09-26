@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="tr" data-theme="light">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>Blog Yönetimi</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.admin-wrap{max-width:900px;margin:28px auto;padding:18px}
+		.manage-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #eee}
+		.manage-actions button{margin-left:8px}
+		.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+	</style>
+</head>
+<body>
+	<div class="admin-wrap">
+		<h1>Blog Yönetimi</h1>
+		<div id="login-box">
+			<p>Admin olarak giriş yapın.</p>
+			<div class="form-group"><label>Kullanıcı</label><input id="admin-user" /></div>
+			<div class="form-group"><label>Şifre</label><input id="admin-pass" type="password" /></div>
+			<button id="admin-login" class="btn">Giriş</button>
+		</div>
+
+		<div id="admin-panel" style="display:none">
+			<div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
+				<button id="admin-logout" class="btn danger">Çıkış</button>
+				<button id="export-posts" class="btn">Export Posts</button>
+			</div>
+			<h2>Yeni Yazı Ekle</h2>
+			<div>
+				<div class="form-grid">
+					<input id="new-title-tr" placeholder="Başlık (TR)" />
+					<input id="new-title-en" placeholder="Title (EN)" />
+					<input id="new-summary-tr" placeholder="Özet (TR)" />
+					<input id="new-summary-en" placeholder="Summary (EN)" />
+					<select id="new-category"><option value="development">Geliştirme</option><option value="tutorial">Eğitim</option><option value="experience">Deneyim</option></select>
+					<input id="new-image" placeholder="Resim yolu (isteğe bağlı)" />
+				</div>
+				<textarea id="new-content-tr" placeholder="İçerik (TR)" rows="6"></textarea>
+				<textarea id="new-content-en" placeholder="Content (EN)" rows="6"></textarea>
+				<div style="margin-top:8px"><button id="add-post" class="btn">Ekle</button></div>
+			</div>
+
+			<h2>Yazılar</h2>
+			<div id="posts-list"></div>
+		</div>
+	</div>
+
+	<script src="script.js"></script>
+	<script src="blogData.js"></script>
+	<script src="blog-management.js"></script>
+</body>
+</html>

@@ -18,9 +18,9 @@
 
   <header class="site-header">
     <div class="container header-inner">
-      <a class="logo" href="index.html" data-key="nav_home">Ali Kemal</a>
+      <a class="logo" href="index.html" data-key="nav_home">Anasayfa</a>
       <nav class="nav">
-        <a href="index.html" data-key="nav_home">Anasayfa</a>
+       <!-- <a href="index.html" data-key="nav_home">Anasayfa</a> -->
         <a href="about.html" data-key="nav_about">Hakkımda</a>
         <a href="projects.html" data-key="nav_projects">Projeler</a>
         <a href="blog.html" data-key="nav_blog">Blog</a>
@@ -45,7 +45,7 @@
         <h2 data-key="blog_title">Blog</h2>
         <p data-key="blog_subtitle">Yazılım geliştirme, teknoloji ve deneyimlerim hakkında yazılar</p>
       </div>
-
+      
       <div class="blog-filters">
         <button class="filter-btn active" data-filter="all" data-key="filter_all">Tümü</button>
         <button class="filter-btn" data-filter="development" data-key="filter_development">Geliştirme</button>
@@ -53,99 +53,7 @@
         <button class="filter-btn" data-filter="experience" data-key="filter_experience">Deneyim</button>
       </div>
 
-      <div class="blog-grid">
-        <article class="blog-card" data-category="development" data-aos="fade-up">
-          <div class="blog-image">
-            <img src="https://images.unsplash.com/photo-1657972170499-3376d9eb8f65?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwxfHxjb21wdXRlciUyMGNvZGUlMjB3b3Jrc3BhY2UlMjBtb25pdG9yc3xlbnwwfDB8fGJsdWV8MTc1ODQ1Nzg0Mnww&ixlib=rb-4.1.0&q=85" 
-                 alt="Modern software development workspace - Photo by Boitumelo on Unsplash" 
-                 loading="lazy">
-            <div class="blog-category" data-key="category_development">Geliştirme</div>
-          </div>
-          <div class="blog-content">
-            <div class="blog-meta">
-              <span class="blog-date">15 Ocak 2024</span>
-              <span class="blog-read-time" data-key="read_time">5 dk okuma</span>
-            </div>
-            <h3 data-key="blog1_title">C# ile Modern Web API Geliştirme</h3>
-            <p data-key="blog1_excerpt">ASP.NET Core kullanarak RESTful API'ler nasıl geliştirilir? Bu yazıda modern web API geliştirme tekniklerini ve best practice'leri inceliyoruz.</p>
-            <div class="blog-tags">
-              <span class="tag">C#</span>
-              <span class="tag">ASP.NET Core</span>
-              <span class="tag">Web API</span>
-            </div>
-            <a href="#" class="blog-read-more" data-key="read_more">Devamını Oku</a>
-          </div>
-        </article>
-
-        <article class="blog-card" data-category="tutorial" data-aos="fade-up" data-aos-delay="100">
-          <div class="blog-image">
-            <img src="https://images.unsplash.com/photo-1554306274-f23873d9a26c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHw0fHxsYXB0b3AlMjB3ZWIlMjBkZXZlbG9wbWVudCUyMHRlY2hub2xvZ3l8ZW58MHwwfHx8MTc1ODQ1Nzg0Mnww&ixlib=rb-4.1.0&q=85" 
-                 alt="Web development tools and technologies - Photo by Safar Safarov on Unsplash" 
-                 loading="lazy">
-            <div class="blog-category" data-key="category_tutorial">Eğitim</div>
-          </div>
-          <div class="blog-content">
-            <div class="blog-meta">
-              <span class="blog-date">10 Ocak 2024</span>
-              <span class="blog-read-time" data-key="read_time">8 dk okuma</span>
-            </div>
-            <h3 data-key="blog2_title">Docker ile Geliştirme Ortamı Kurulumu</h3>
-            <p data-key="blog2_excerpt">Docker kullanarak tutarlı geliştirme ortamları nasıl oluşturulur? Containerization'ın avantajları ve pratik uygulama örnekleri.</p>
-            <div class="blog-tags">
-              <span class="tag">Docker</span>
-              <span class="tag">DevOps</span>
-              <span class="tag">Tutorial</span>
-            </div>
-            <a href="#" class="blog-read-more" data-key="read_more">Devamını Oku</a>
-          </div>
-        </article>
-
-        <article class="blog-card" data-category="experience" data-aos="fade-up" data-aos-delay="200">
-          <div class="blog-image">
-            <img src="https://images.unsplash.com/photo-1581193633211-42cf83aaa734?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwzfHxkYXRhYmFzZSUyMHNlcnZlciUyMGJhY2tlbmQlMjBkYXRhfGVufDB8MHx8Z3JlZW58MTc1ODQ1Nzg0Mnww&ixlib=rb-4.1.0&q=85" 
-                 alt="Database and backend development visualization - Photo by Krisztian Tabori on Unsplash" 
-                 loading="lazy">
-            <div class="blog-category" data-key="category_experience">Deneyim</div>
-          </div>
-          <div class="blog-content">
-            <div class="blog-meta">
-              <span class="blog-date">5 Ocak 2024</span>
-              <span class="blog-read-time" data-key="read_time">6 dk okuma</span>
-            </div>
-            <h3 data-key="blog3_title">SQL Server Performans Optimizasyonu Deneyimlerim</h3>
-            <p data-key="blog3_excerpt">Büyük veri setleriyle çalışırken karşılaştığım performans sorunları ve bunları nasıl çözdüğüm hakkında deneyimlerimi paylaşıyorum.</p>
-            <div class="blog-tags">
-              <span class="tag">SQL Server</span>
-              <span class="tag">Performance</span>
-              <span class="tag">Database</span>
-            </div>
-            <a href="#" class="blog-read-more" data-key="read_more">Devamını Oku</a>
-          </div>
-        </article>
-
-        <article class="blog-card" data-category="development" data-aos="fade-up" data-aos-delay="300">
-          <div class="blog-image">
-            <img src="https://images.unsplash.com/photo-1630442923896-244dd3717b35?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwzfHxsYXB0b3AlMjB3ZWIlMjBkZXZlbG9wbWVudCUyMHRlY2hub2xvZ3l8ZW58MHwwfHx8MTc1ODQ1Nzg0Mnww&ixlib=rb-4.1.0&q=85" 
-                 alt="Web development setup - Photo by Fahim Muntashir on Unsplash" 
-                 loading="lazy">
-            <div class="blog-category" data-key="category_development">Geliştirme</div>
-          </div>
-          <div class="blog-content">
-            <div class="blog-meta">
-              <span class="blog-date">28 Aralık 2023</span>
-              <span class="blog-read-time" data-key="read_time">7 dk okuma</span>
-            </div>
-            <h3 data-key="blog4_title">Clean Architecture ile Proje Yapısı</h3>
-            <p data-key="blog4_excerpt">Sürdürülebilir ve test edilebilir kod yazmak için Clean Architecture prensiplerini nasıl uyguluyorum.</p>
-            <div class="blog-tags">
-              <span class="tag">Architecture</span>
-              <span class="tag">Clean Code</span>
-              <span class="tag">Best Practices</span>
-            </div>
-            <a href="#" class="blog-read-more" data-key="read_more">Devamını Oku</a>
-          </div>
-        </article>
-      </div>
+      <div class="blog-grid"></div>
 
       <div class="blog-pagination">
         <button class="pagination-btn" disabled>← Önceki</button>
@@ -173,5 +81,6 @@
   </div>
 
   <script src="script.js"></script>
+  <script src="blogData.js"></script>
 </body>
 </html>

@@ -276,9 +276,13 @@ window.addEventListener('load', () => {
 function applyTheme(theme){
   if(theme === 'dark') document.documentElement.setAttribute('data-theme','dark');
   else document.documentElement.setAttribute('data-theme','light');
+  // persist theme (applyTheme is the single writer)
   localStorage.setItem('site-theme', theme);
-  // update toggle icon if exists
-  document.querySelectorAll('.theme-toggle').forEach(btn => btn.textContent = theme === 'dark' ? '🌙' : '☀️');
+  localStorage.setItem('theme', theme);
+  // update the single icon element if present, otherwise update theme-toggle button text
+  const icon = document.getElementById('theme-icon');
+  if (icon) icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+  else document.querySelectorAll('.theme-toggle').forEach(btn => btn.textContent = theme === 'dark' ? '☀️' : '🌙');
 }
 
 // Initialize theme from localStorage
@@ -296,54 +300,88 @@ document.addEventListener('click', e => {
   }
 });
 
-// Mobile nav panel toggle (delegated)
-document.addEventListener('click', e => {
-  if(e.target.matches('.menu-toggle')){
+// Responsive nav toggle (single handler)
+(function(){
+  const mq = window.matchMedia('(max-width:820px)');
+
+  function createMobilePanel(){
     let panel = document.querySelector('.nav-panel');
-    let backdrop = document.querySelector('.nav-backdrop');
-    if(!panel){
-      panel = document.createElement('div'); panel.className = 'nav-panel';
-      panel.setAttribute('role', 'dialog');
-      panel.setAttribute('aria-modal', 'true');
-      panel.setAttribute('aria-hidden', 'true');
-      // clone links from existing nav
-      const nav = document.querySelector('.nav');
-      if(nav){
-        const clone = nav.cloneNode(true);
-        clone.style.display = 'flex'; clone.style.flexDirection = 'column'; clone.style.gap = '10px';
-        panel.appendChild(clone);
-      }
-      if(!panel.querySelector('a')) panel.textContent = 'No navigation links found.';
-      const close = document.createElement('button'); close.className='menu-toggle-close'; close.textContent='Kapat'; close.style.marginTop='auto'; panel.appendChild(close);
-      document.body.appendChild(panel);
+    if(panel) return panel;
+    panel = document.createElement('div'); panel.className = 'nav-panel';
+    panel.setAttribute('role', 'dialog');
+    panel.setAttribute('aria-modal', 'true');
+    panel.setAttribute('aria-hidden', 'true');
+    const nav = document.querySelector('.nav');
+    if(nav){
+      // clone links but avoid copying the .nav class which may be hidden by media queries
+      const clone = document.createElement('div');
+      clone.className = 'mobile-nav';
+      clone.innerHTML = nav.innerHTML;
+      clone.style.display = 'flex'; clone.style.flexDirection = 'column'; clone.style.gap = '10px';
+      panel.appendChild(clone);
     }
-    if(!backdrop){ backdrop = document.createElement('div'); backdrop.className='nav-backdrop'; document.body.appendChild(backdrop); }
-    const isOpen = panel.classList.toggle('open'); backdrop.classList.toggle('open', isOpen);
-    panel.setAttribute('aria-hidden', String(!isOpen));
-    // manage focus: move focus into panel when opened
-    if(isOpen){
-      const firstLink = panel.querySelector('a') || panel.querySelector('button');
-      if(firstLink) firstLink.focus();
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    if(!panel.querySelector('a')) panel.textContent = 'No navigation links found.';
+    const close = document.createElement('button'); close.className='menu-toggle-close'; close.textContent='Kapat'; close.style.marginTop='auto'; panel.appendChild(close);
+    document.body.appendChild(panel);
+    return panel;
   }
-  // close via backdrop click
-  if(e.target.matches('.nav-backdrop') || e.target.matches('.menu-toggle-close')){
+
+  function ensureBackdrop(){
+    let backdrop = document.querySelector('.nav-backdrop');
+    if(!backdrop){ backdrop = document.createElement('div'); backdrop.className='nav-backdrop'; document.body.appendChild(backdrop); }
+    return backdrop;
+  }
+
+  function openMobilePanel(){
+    const panel = createMobilePanel();
+    const backdrop = ensureBackdrop();
+    panel.classList.add('open'); backdrop.classList.add('open'); panel.setAttribute('aria-hidden','false');
+    const first = panel.querySelector('a,button'); if(first) first.focus();
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMobilePanel(){
     const panel = document.querySelector('.nav-panel'); const backdrop = document.querySelector('.nav-backdrop');
     if(panel) panel.classList.remove('open'); if(backdrop) backdrop.classList.remove('open');
     if(panel) panel.setAttribute('aria-hidden','true');
     document.body.style.overflow = '';
   }
-  // if link inside nav-panel clicked, close panel
-  if(e.target.closest('.nav-panel') && e.target.closest('a')){
-    const panel = document.querySelector('.nav-panel'); const backdrop = document.querySelector('.nav-backdrop');
-    if(panel){ panel.classList.remove('open'); if(backdrop) backdrop.classList.remove('open'); }
-    if(panel) panel.setAttribute('aria-hidden','true');
-    document.body.style.overflow = '';
-  }
-});
+
+  document.addEventListener('click', e => {
+    const toggle = e.target.closest('.menu-toggle');
+    if(toggle){
+      if(mq.matches){
+        // mobile
+        const panel = document.querySelector('.nav-panel');
+        if(panel && panel.classList.contains('open')) closeMobilePanel();
+        else openMobilePanel();
+        return;
+      } else {
+        // desktop: toggle inline nav
+        const nav = document.querySelector('.nav');
+        if(!nav) return;
+        nav.classList.toggle('open');
+        document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
+        return;
+      }
+    }
+
+    // backdrop or close button
+    if(e.target.matches('.nav-backdrop') || e.target.matches('.menu-toggle-close')){
+      closeMobilePanel();
+      return;
+    }
+
+    // clicking a link inside mobile panel should close it
+    if(e.target.closest('.nav-panel') && e.target.closest('a')){
+      closeMobilePanel();
+      return;
+    }
+  });
+
+  // close on Escape
+  document.addEventListener('keydown', (ev) => { if(ev.key === 'Escape') closeMobilePanel(); });
+})();
 
 // close nav-panel with Escape and trap focus a bit while open
 document.addEventListener('keydown', (ev) => {
@@ -353,6 +391,7 @@ document.addEventListener('keydown', (ev) => {
       panel.classList.remove('open'); if(backdrop) backdrop.classList.remove('open'); panel.setAttribute('aria-hidden','true'); document.body.style.overflow = '';
     }
   }
+  // simple focus trap: if tabbing while panel open,   Get-ChildItem -Path . -Recurse -File |
   // simple focus trap: if tabbing while panel open, keep focus inside
   if(ev.key === 'Tab'){
     const panel = document.querySelector('.nav-panel');
@@ -539,53 +578,6 @@ document.addEventListener('submit', e => {
   }
 });
 
-// Real-time validation
-document.addEventListener('input', e => {
-  if (e.target.matches('#contact-form input, #contact-form textarea')) {
-    const fieldId = e.target.id;
-    const value = e.target.value;
-    
-    switch(fieldId) {
-      case 'name':
-        validateField(fieldId, value, { required: true, minLength: 2 });
-        break;
-      case 'email':
-        validateField(fieldId, value, { required: true, email: true });
-        break;
-      case 'subject':
-        validateField(fieldId, value, { required: true, minLength: 3 });
-        break;
-      case 'message':
-        validateField(fieldId, value, { required: true, minLength: 10 });
-        break;
-    }
-  }
-});
-
-// -----------------------------
-// Blog filtering functionality
-// -----------------------------
-document.addEventListener('click', e => {
-  if (e.target.matches('.filter-btn')) {
-    const filter = e.target.getAttribute('data-filter');
-    const cards = document.querySelectorAll('.blog-card');
-    
-    // Update active filter button
-    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-    e.target.classList.add('active');
-    
-    // Filter cards
-    cards.forEach(card => {
-      const category = card.getAttribute('data-category');
-      if (filter === 'all' || category === filter) {
-        card.classList.remove('hidden');
-      } else {
-        card.classList.add('hidden');
-      }
-    });
-  }
-});
-
 // -----------------------------
 // Page transitions: fetch + replace <main>
 // - Click any internal link
@@ -643,12 +635,8 @@ async function fetchAndSwap(url, addToHistory = true){
     // re-init language UI in new content (buttons, aria-pressed)
     if(typeof initLanguageUI === 'function') initLanguageUI();
     document.querySelectorAll('[id^="year"]').forEach(el => el.textContent = new Date().getFullYear());
-    // small re-init for menu button binding (if any)
-    const menuBtn = document.querySelector('.menu-toggle');
-    const nav = document.querySelector('.nav');
-    if(menuBtn && nav){
-      menuBtn.addEventListener('click', ()=> nav.classList.toggle('open'));
-    }
+    // small re-init for menu button presence (clicks are delegated globally)
+    // no direct event binding needed here because menu toggling is delegated
 
     // apply enter animation classes for smoother appearance
     main.classList.remove('page-exit');
@@ -699,15 +687,7 @@ document.addEventListener('click', e => {
   }
 });
 
-// Delegate menu toggle so it persists after content swaps
-document.addEventListener('click', e => {
-  if(e.target.matches('.menu-toggle')){
-    const nav = document.querySelector('.nav');
-    if(!nav) return;
-    nav.classList.toggle('open');
-    document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
-  }
-});
+// Note: menu toggle handled by the responsive matchMedia-driven handler above.
 
 // handle back/forward
 window.addEventListener('popstate', (e) => {
@@ -785,146 +765,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 // small helper: close modal if click outside image
 // already handled by click listener above
 
-// -----------------------------
-// Enhanced Contact form validation
-// -----------------------------
-function showError(fieldId, message) {
-  const field = document.getElementById(fieldId);
-  const group = field.closest('.form-group');
-  const errorEl = document.getElementById(fieldId + '-error');
-  
-  if (group && errorEl) {
-    group.classList.add('error');
-    errorEl.textContent = message;
-    errorEl.classList.add('show');
-  }
-}
-
-function clearError(fieldId) {
-  const field = document.getElementById(fieldId);
-  const group = field.closest('.form-group');
-  const errorEl = document.getElementById(fieldId + '-error');
-  
-  if (group && errorEl) {
-    group.classList.remove('error');
-    errorEl.classList.remove('show');
-  }
-}
-
-function validateField(fieldId, value, rules) {
-  clearError(fieldId);
-  
-  if (rules.required && !value.trim()) {
-    showError(fieldId, 'Bu alan zorunludur.');
-    return false;
-  }
-  
-  if (rules.email && value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-    showError(fieldId, 'Geçerli bir e-posta adresi girin.');
-    return false;
-  }
-  
-  if (rules.minLength && value.length < rules.minLength) {
-    showError(fieldId, `En az ${rules.minLength} karakter olmalıdır.`);
-    return false;
-  }
-  
-  return true;
-}
-
-// Enhanced form submission with better UX
-document.addEventListener('submit', e => {
-  if(e.target && e.target.id === 'contact-form'){
-    e.preventDefault();
-    
-    const name = document.getElementById('name');
-    const email = document.getElementById('email');
-    const subject = document.getElementById('subject');
-    const message = document.getElementById('message');
-    const msg = document.getElementById('form-msg');
-    const btnText = document.querySelector('.btn-text');
-    const btnLoading = document.querySelector('.btn-loading');
-    
-    // Validate all fields
-    let isValid = true;
-    if (name) isValid = validateField('name', name.value, { required: true, minLength: 2 }) && isValid;
-    if (email) isValid = validateField('email', email.value, { required: true, email: true }) && isValid;
-    if (subject) isValid = validateField('subject', subject.value, { required: true, minLength: 3 }) && isValid;
-    if (message) isValid = validateField('message', message.value, { required: true, minLength: 10 }) && isValid;
-    
-    // Fallback for old contact form
-    if (!subject && name && email && message) {
-      if(!name.value.trim() || !email.value.trim() || !message.value.trim()){
-        if (msg) msg.textContent = 'Lütfen tüm alanları doldurun.';
-        return;
-      }
-      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)){
-        if (msg) msg.textContent = 'Geçerli bir e-posta girin.';
-        return;
-      }
-      if (msg) msg.textContent = 'Mesaj gönderildi (demo). Teşekkürler!';
-      name.value = email.value = message.value = '';
-      return;
-    }
-    
-    if (!isValid) return;
-    
-    // Show loading state
-    if (btnText && btnLoading) {
-      btnText.style.display = 'none';
-      btnLoading.style.display = 'flex';
-    }
-    
-    // Simulate form submission
-    setTimeout(() => {
-      if (btnText && btnLoading) {
-        btnText.style.display = 'block';
-        btnLoading.style.display = 'none';
-      }
-      
-      if (msg) {
-        msg.textContent = 'Mesajınız başarıyla gönderildi! En kısa sürede size dönüş yapacağım.';
-        msg.className = 'form-msg success show';
-      }
-      
-      // Clear form
-      if (name) name.value = '';
-      if (email) email.value = '';
-      if (subject) subject.value = '';
-      if (message) message.value = '';
-      
-      // Hide success message after 5 seconds
-      if (msg) {
-        setTimeout(() => {
-          msg.classList.remove('show');
-        }, 5000);
-      }
-    }, 2000);
-  }
-});
-
-// Real-time validation
-document.addEventListener('input', e => {
-  if (e.target.matches('#contact-form input, #contact-form textarea')) {
-    const fieldId = e.target.id;
-    const value = e.target.value;
-    
-    switch(fieldId) {
-      case 'name':
-        validateField(fieldId, value, { required: true, minLength: 2 });
-        break;
-      case 'email':
-        validateField(fieldId, value, { required: true, email: true });
-        break;
-      case 'subject':
-        validateField(fieldId, value, { required: true, minLength: 3 });
-        break;
-      case 'message':
-        validateField(fieldId, value, { required: true, minLength: 10 });
-        break;
-    }
-  }
-});
+// Real-time validation (handled earlier) - nothing to repeat here
 
 // -----------------------------
 // Blog filtering functionality
@@ -1066,37 +907,108 @@ function animateSkillBars() {
   });
 }
 
-// Initialize about page animations
+// Initialize about page animations and re-initialize after page transitions
 document.addEventListener('DOMContentLoaded', () => {
-  if (document.querySelector('.about-stats')) {
-    animateCounters();
+  function initAbout() {
+    if (document.querySelector('.about-stats')) animateCounters();
+    if (document.querySelector('.skill-progress-bar')) animateSkillBars();
   }
-  if (document.querySelector('.skill-progress-bar')) {
-    animateSkillBars();
+
+  initAbout();
+
+  const mainContent = document.getElementById('main-content');
+  if (mainContent) {
+    const observer = new MutationObserver(() => { setTimeout(initAbout, 100); });
+    observer.observe(mainContent, { childList: true, subtree: true });
   }
 });
 
-// Re-initialize after page transitions
-document.addEventListener('DOMContentLoaded', () => {
-  const mainContent = document.getElementById('main-content');
-  if (mainContent) {
-    const observer = new MutationObserver(() => {
-      setTimeout(() => {
-        if (document.querySelector('.about-stats')) {
-          animateCounters();
-        }
-        if (document.querySelector('.skill-progress-bar')) {
-          animateSkillBars();
-        }
-      }, 100);
-    });
-    
-    observer.observe(mainContent, {
-      childList: true,
-      subtree: true
+// -----------------------------
+// Admin login UI in header + Blog Düzenleme button
+// -----------------------------
+function isAdminLocal(){
+  try{ if(window.blogData && typeof window.blogData.isAdmin === 'function') return window.blogData.isAdmin(); }catch(e){}
+  return localStorage.getItem('isAdmin') === '1';
+}
+
+function renderAdminHeader(){
+  const controls = document.querySelector('.controls');
+  if(!controls) return;
+  let btn = document.getElementById('header-admin-btn');
+  if(!btn){
+    btn = document.createElement('button'); btn.id = 'header-admin-btn'; btn.className = 'btn'; btn.style.marginLeft = '6px';
+    controls.appendChild(btn);
+    btn.addEventListener('click', ()=>{
+      if(isAdminLocal()){
+        // logout
+        if(window.blogData && typeof window.blogData.adminLogout === 'function') window.blogData.adminLogout();
+        else localStorage.removeItem('isAdmin');
+        renderAdminHeader();
+        removeBlogEditButton();
+        alert('Çıkış yapıldı.');
+        return;
+      }
+      // show login modal
+      showAdminLoginModal();
     });
   }
-});
+  btn.textContent = isAdminLocal() ? 'Çıkış Yap' : 'Giriş Yap';
+  // ensure blog edit button exists on blog page if logged in
+  if(isAdminLocal()) ensureBlogEditButton(); else removeBlogEditButton();
+}
+
+function ensureBlogEditButton(){
+  // only on blog page
+  const blogGrid = document.querySelector('.blog-grid');
+  if(!blogGrid) return;
+  if(document.getElementById('blog-edit-btn')) return;
+  const wrap = document.createElement('div'); wrap.style.display='flex'; wrap.style.justifyContent='flex-end'; wrap.style.margin='0 0 12px 0';
+  const btn = document.createElement('a'); btn.id='blog-edit-btn'; btn.className='btn'; btn.href='blog-management.html'; btn.textContent='Blog Düzenleme';
+  wrap.appendChild(btn);
+  blogGrid.parentNode.insertBefore(wrap, blogGrid);
+}
+
+function removeBlogEditButton(){
+  const b = document.getElementById('blog-edit-btn'); if(b){ const p = b.parentNode; p.remove(); }
+}
+
+function showAdminLoginModal(){
+  if(document.getElementById('admin-login-modal')) return;
+  const modal = document.createElement('div'); modal.id='admin-login-modal'; modal.className='modal'; modal.setAttribute('aria-hidden','false');
+  modal.innerHTML = `
+    <div class="modal-inner" style="max-width:420px;padding:18px;border-radius:10px;">
+      <h3>Admin Girişi</h3>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
+        <input id="modal-admin-user" placeholder="Kullanıcı" />
+        <input id="modal-admin-pass" type="password" placeholder="Şifre" />
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
+          <button id="modal-admin-cancel" class="btn">İptal</button>
+          <button id="modal-admin-login" class="btn">Giriş</button>
+        </div>
+        <small class="muted">Kullanıcı: nukte, Şifre: root</small>
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+  // wire
+  document.getElementById('modal-admin-cancel').addEventListener('click', ()=>{ closeAdminLoginModal(); });
+  document.getElementById('modal-admin-login').addEventListener('click', ()=>{
+    const u = document.getElementById('modal-admin-user').value.trim();
+    const p = document.getElementById('modal-admin-pass').value.trim();
+    let ok = false;
+    try{ if(window.blogData && typeof window.blogData.tryAdminLogin === 'function') ok = window.blogData.tryAdminLogin(u,p); }
+    catch(e){ ok = (u==='nukte' && p==='root'); if(ok) localStorage.setItem('isAdmin','1'); }
+    if(ok){ closeAdminLoginModal(); renderAdminHeader(); alert('Giriş başarılı!'); }
+    else { alert('Giriş başarısız'); }
+  });
+  // clicking backdrop closes
+  modal.addEventListener('click', (ev)=>{ if(ev.target===modal) closeAdminLoginModal(); });
+}
+
+function closeAdminLoginModal(){ const m = document.getElementById('admin-login-modal'); if(m) m.remove(); }
+
+// initialize header admin controls once DOM ready
+document.addEventListener('DOMContentLoaded', ()=>{ renderAdminHeader(); });
+
 
 // Responsive hamburger menü aç/kapa
 // Enhanced script with blog functionality, improved UX and about page animations

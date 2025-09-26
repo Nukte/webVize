@@ -51,24 +51,73 @@ body{
 .nav a::after{content:'';position:absolute;left:0;right:0;bottom:-6px;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));opacity:0;transform:translateY(6px);transition:all 220ms ease;border-radius:6px}
 .nav a:hover::after, .nav a.active::after{opacity:1;transform:translateY(0)}
 
-/* Mobile slide panel for nav and backdrop */
+/* Mobile slide panel for nav and backdrop (polished) */
 .nav-panel{
-  position:fixed;top:0;right:-320px;width:280px;height:100vh;background:var(--card);box-shadow:0 20px 60px rgba(0,0,0,0.12);transition:right 320ms cubic-bezier(.2,.9,.3,1);z-index:10005;padding:2.4rem 1.2rem;display:flex;flex-direction:column;gap:1rem
+  position:fixed;
+  top:0;
+  right:0;
+  bottom:0;
+  width:320px;
+  max-width:85vw;
+  background: linear-gradient(180deg, var(--card), rgba(255,255,255,0.02));
+  box-shadow: -12px 0 30px rgba(0,0,0,0.45);
+  transition: transform 260ms cubic-bezier(.2,.9,.2,1);
+  z-index:1400;
+  padding:22px 16px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  transform:translateX(110%);
+  .menu-toggle-close{background:linear-gradient(180deg, rgba(0,0,0,0.02), rgba(255,255,255,0.01));border:1px solid rgba(0,0,0,0.06);padding:0.7rem 0.9rem;border-radius:10px;cursor:pointer;color:var(--text);font-weight:700;align-self:stretch;text-align:center}
+  border-left: 1px solid rgba(0,0,0,0.04);
 }
-.nav-panel.open{right:0}
-.nav-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.35);opacity:0;pointer-events:none;transition:opacity 220ms ease;z-index:10004}
+.nav-panel.open{transform:translateX(0)}
+.nav-backdrop{position:fixed;inset:0;background:linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.65));opacity:0;pointer-events:none;transition:opacity 220ms ease;z-index:1300;backdrop-filter:blur(6px)}
 .nav-backdrop.open{opacity:1;pointer-events:auto}
+
+/* mobile-panel link styles */
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem 1.2rem;
+    margin-bottom: 2.6rem;
+    align-items: start;
+  }
+.nav-panel .mobile-nav{display:flex;flex-direction:column;gap:10px}
+.nav-panel .mobile-nav a{color:var(--text);text-decoration:none;padding:0.85rem 0.6rem;border-radius:8px;font-weight:700}
+.nav-panel .mobile-nav a:hover{background:rgba(0,0,0,0.04);transform:translateX(4px);transition:transform 160ms ease, background 140ms ease}
+.nav-panel .mobile-nav a.active{background:rgba(0,0,0,0.06)}
+
 
 @media (max-width:820px){
   .nav{display:none}
   .menu-toggle{display:block}
 }
+  .blog-card {
+    background: linear-gradient(180deg, var(--card), rgba(0,0,0,0.02));
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 12px 30px rgba(2,6,23,0.25);
+    transition: transform 260ms ease, box-shadow 260ms ease, opacity 200ms ease;
+    opacity: 1;
+    transform: translateY(0);
+    border: 1px solid rgba(0,0,0,0.04);
+  }
 
 /* theme switching helper - subtle fade for items that don't use CSS variables
    We add transitions for many visual properties so the switch doesn't feel abrupt */
 .theme-switching, .theme-switching * {
   transition: background-color 380ms ease, color 380ms ease, border-color 380ms ease, box-shadow 380ms ease, filter 380ms ease, fill 380ms ease, stroke 380ms ease;
 }
+  .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.65));z-index:1000}
+  .modal[aria-hidden="false"]{display:flex}
+  .modal-inner{position:relative;max-width:92%;max-height:92%;padding:18px;border-radius:12px;background:var(--card);box-shadow:0 18px 60px rgba(2,8,30,0.45);border:1px solid rgba(0,0,0,0.06)}
+  .modal img{max-width:100%;max-height:78vh;border-radius:8px}
+  .modal-close{position:absolute;right:-10px;top:-10px;background:var(--card);border-radius:50%;border:none;padding:0.4rem;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,0.12)}
+
+  /* Utilities */
+  .muted{color:var(--muted)}
+  .small{font-size:0.92rem}
 
 .menu-toggle-close{background:transparent;border:1px solid var(--muted);padding:0.6rem 0.9rem;border-radius:8px;cursor:pointer}
 
@@ -152,6 +201,7 @@ small {
     flex-direction: column;
     max-height: 400px;
     padding-bottom: 1rem;
+    position:relative;z-index:60;
   }
   .menu-toggle {
     display: block;
@@ -365,7 +415,7 @@ body[data-theme='dark'] .page-overlay{background:linear-gradient(180deg,rgba(127
 
 .blog-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
   margin-bottom: 3rem;
 }
@@ -389,6 +439,40 @@ body[data-theme='dark'] .page-overlay{background:linear-gradient(180deg,rgba(127
   opacity: 0;
   transform: translateY(20px);
   pointer-events: none;
+}
+
+/* Align blog-data generated markup (.card-media / .card-body) with blog styles */
+.blog-card .card-media{
+  height: 220px;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.01));
+}
+.blog-card .card-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.35s ease}
+.blog-card:hover .card-media img{transform:scale(1.04)}
+.blog-card .card-body{padding:1.4rem 1.4rem 1.8rem}
+.blog-card .card-title{margin:0 0 0.6rem;color:var(--text);font-size:1.15rem}
+.blog-card .card-excerpt{color:var(--muted);margin:0 0 1rem;line-height:1.6}
+.blog-card .card-actions{display:flex;justify-content:flex-end}
+.blog-card .card-actions .btn{padding:0.48rem 0.9rem;border-radius:8px;font-size:0.92rem}
+
+/* Modal for post content: make inner panel more readable */
+.post-modal-inner{
+  background: var(--card);
+  padding: 1.2rem 1.4rem;
+  border-radius: 12px;
+  max-width: 900px;
+  width: calc(100% - 40px);
+  max-height: 90vh;
+  overflow:auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.24);
+}
+.post-modal-inner .post-content h2{margin-top:0}
+.post-modal-inner img{border-radius:8px;margin-bottom:12px}
+
+@media (max-width:600px){
+  .blog-grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+  .blog-card .card-media{height:160px}
+  .container{padding:1.4rem}
 }
 
 .blog-image {
